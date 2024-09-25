@@ -3,16 +3,14 @@
 #include <QObject>
 #include <QMap>
 #include <QString>
-#include <qobject.h>
 
 QT_BEGIN_NAMESPACE
 
-namespace EX1 {
+namespace Web{
 
     class Person : QObject {
         Q_OBJECT
-        Q_CLASSINFO("ex1", "jlib")
-        Q_PROPERTY(int age READ getAge WRITE setAge MEMBER m_age NOTIFY ageChange)
+        Q_PROPERTY(int age READ getAge WRITE setAge MEMBER m_age NOTIFY ageChanged)
         Q_PROPERTY(QString name MEMBER m_name)
         Q_PROPERTY(double score MEMBER m_score)
 
@@ -27,11 +25,15 @@ namespace EX1 {
             explicit Person(QMap<QString, QPair<int, double>>& _person, QObject *parent=nullptr);
             ~Person() = default;
 
-            int getAge(QStringView _name);
-            bool setAge(QStringView _name,int _age);
+    //  Property functions
+            int getAge(){return 0;}
+            bool setAge(int _age){return false;}
+    //   Custom
+        int getAge(QStringView _name);
+        bool setAge(QStringView _name, int _age);
+
         signals:
-            void ageChange();
-        
+            void ageChanged();
 
     };
 }   // namespace  EX1

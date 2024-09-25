@@ -3,7 +3,7 @@
 #include <QException>
 
 QT_BEGIN_NAMESPACE
-namespace Ex1 {
+namespace Web {
 
 class Exception : public QException {
 public:
@@ -21,7 +21,7 @@ public:
   NullPointer() = default;
   QString message() override {
     *m_msg = "it's NULL_Pointer exceptions\n";
-    qDebug() << m_msg;
+    qDebug("%s",m_msg->toStdString().c_str());
     return *m_msg;
   }
 };
