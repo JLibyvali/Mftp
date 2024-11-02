@@ -1,2 +1,4 @@
-build
-.cache
+test-build
+**/build
+**/.cache
+*.o
