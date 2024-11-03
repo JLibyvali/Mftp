@@ -1,6 +1,13 @@
 {
     "configurations": [
         {
+            "name": "CMake: Script debugging",
+            "type": "cmake",
+            "request": "launch",
+            "cmakeDebugType": "script",
+            "scriptPath": "${workspaceFolder}/cmake/cmdAPI.cmake"
+        },
+        {
             "name": "GDB",
             "type": "gdb",
             "request": "launch",
@@ -17,7 +24,8 @@
             "cwd": "${workspaceRoot}",
             "valuesFormatting": "parseText",
             "stopAtEntry": true,
-        }
+        },
+
     ]
 
 }

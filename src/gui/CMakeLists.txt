@@ -1,4 +1,5 @@
-set(SRCS_FILES_GUI PARENT_SCOPE
+set(SRCS_FILES_GUI
+    PARENT_SCOPE
     FileSystem/FileOptons.cpp
     FileSystem/FileSystem.cpp
     FileSystem/IODevice.cpp

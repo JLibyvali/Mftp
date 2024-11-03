@@ -1,1 +1,0 @@
-set(libuv_TEST_srcs PARENT_SCOPE uv.cpp)

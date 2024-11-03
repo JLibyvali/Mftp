@@ -1,1 +1,0 @@
-set(cli_TEST_srcs PARENT_SCOPE  cli.cpp)
