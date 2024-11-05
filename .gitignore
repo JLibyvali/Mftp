@@ -2,3 +2,4 @@ test-build
 **/build
 **/.cache
 *.o
+demo

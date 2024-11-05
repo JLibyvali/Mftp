@@ -3,12 +3,17 @@ include ( ${CMAKE_SOURCE_DIR}/cmake/cmdAPI.cmake )
 # ######################################################################################################################################################################################################
 # Language
 # ######################################################################################################################################################################################################
+set ( CMAKE_EXPORT_COMPILE_COMMANDS ON )
 enable_language ( C CXX )
 set ( CMAKE_C_STANDARD 99 )
 set ( CMAKE_C_STANDARD_REQUIRED ON )
 set ( CMAKE_CXX_STANDARD 20 )
 set ( CMAKE_CXX_STANDARD_REQUIRED ON )
 set ( CMAKE_CXX_EXTENSIONS OFF )
+
+if ( CMAKE_EXPORT_COMPILE_COMMANDS )
+    set ( CMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES ${CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES} )
+endif ()
 
 # ######################################################################################################################################################################################################
 # Compiler and  linker
@@ -35,7 +40,7 @@ set ( _FALG_RK3566 CACHE STRING "Add compiler flags of RK3566 soc" )
 # -fstack-clash-protection "Generate code to prevent stack clash style attacks. When this option is enabled, the compiler will only allocate one page of stack space at a time and each page is accessed immediately after allocation. "
 # -funroll-all-loops "Unroll all loops, even if their number of iterations is uncertain when the loop is entered. This usually makes programs run more slowly.
 # -funroll-all-loops implies the same options as -funroll-loops,"
-set ( FLAG_DEBUG "-O0 -g3 -ggdb3 -Wall -fpic -fpie -fexceptions -fstack-protector-strong -fstack-clash-protection -funroll-all-loops" CACHE STRING
+set ( FLAG_DEBUG "-O0 -g3 -ggdb3 -fPIC -Wall -fexceptions -fstack-protector-strong -fstack-clash-protection" CACHE STRING
     "Add Compiler flag When cmake debug variant" )
 
 # ######################################################################################################################################################################################################
@@ -43,7 +48,7 @@ set ( FLAG_DEBUG "-O0 -g3 -ggdb3 -Wall -fpic -fpie -fexceptions -fstack-protecto
 # ######################################################################################################################################################################################################
 # -ffunction-sections   "Place each function or data item into its own section in the output file if the target supports arbitrary sections. The name of the function or the name of the data item determines the section’s name in the output file."
 # -fdata-section’s  "small size output file" -fno-delete-null-pointer-checks ""
-set ( FLAG_PRODUCTION "-O3 -fpic -fpie -ffunction-sections -fdata-sections" CACHE STRING "Add compiler flags when cmake release variant" )
+set ( FLAG_PRODUCTION "-O3 -fPIC-ffunction-sections -fdata-sections" CACHE STRING "Add compiler flags when cmake release variant" )
 
 # ######################################################################################################################################################################################################
 # Perfomance tools related
@@ -70,7 +75,7 @@ set ( FLAG_CHECK_BUILD "-grecord-gcc-switches" CACHE STRING "Add falg for  check
 # -flto " hen the object files are linked together, all the function bodies are read from these ELF sections and instantiated as if they had been part of the same translation unit."
 # -fuse-linker-plugin "This option enables the extraction of object files with GIMPLE bytecode out of library archives. This improves the quality of optimization by exposing more code to the link-time optimizer."
 set ( FLAG_LINKER_SMALL "-fuse-linker-plugin --gc-sections -flto" CACHE STRING "Add linker flag for small output file" )
-set ( FLAG_LINKER "-pie -shared -fuse-ld=gold -Wl,-Map=Symbols.map" CACHE STRING "Add some basic liner flag" )
+set ( FLAG_LINKER "-fuse-ld=gold -Wl,-Map=Symbols.map" CACHE STRING "Add some basic liner flag" )
 
 # ######################################################################################################################################################################################################
 # Macro sets
@@ -78,6 +83,15 @@ set ( FLAG_LINKER "-pie -shared -fuse-ld=gold -Wl,-Map=Symbols.map" CACHE STRING
 # _FORTIFY_SOURCE "Check some Glibc function buffer safe"
 # _GLIBCXX_ASSERTIONS "When defined, enables extra error checking in the form of precondition assertions, such as bounds checking in strings and null pointer checks when dereferencing smart pointers."
 set ( MACRO_DEBUG "_FORTIFY_SOURCE=2 _GLIBCXX_ASSERTIONS" CACHE STRING "Add cmake macro" )
+
+
+# ######################################################################################################################################################################################################
+# Template error report
+# Clang flag
+# ######################################################################################################################################################################################################
+# -fno-elide-type "Turns off elision in template type printing"
+# -fdiagnostics-show-template-tree "Template type diffing prints a text tree from single line"
+# -ftemplate-backtrace-limit "The default is 10, and the limit can be disabled with -ftemplate-backtrace-limit=0."
 
 # Init basic compier flag
 set ( CMAKE_C_FLAGS_DEBUG ${FLAG_DEBUG} )

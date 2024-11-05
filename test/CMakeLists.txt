@@ -1,26 +1,17 @@
-cmake_minimum_required(VERSION 3.28)
-project(Test)
+cmake_minimum_required ( VERSION 3.28 )
+project ( Test )
 
-set(src "")
-set(header "")
+function ( compile _name )
+    add_executable ( ${_name} ${src} ${header} )
+endfunction ( compile _name )
 
-function(compile _name)
-    add_executable(${_name} ${src} ${header})
-endfunction(compile _name)
+# Build given name test target
+function ( build_test _what )
+    set ( CMAKE_RUNTIME_OUTPUT_DIRECTORY test )
 
-# test
-function(build_test)
-    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "/home/jlibyvali/Developer/projetcs/Mftp/test-build")
-    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "/home/jlibyvali/Developer/projetcs/Mftp/test-build")
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "/home/jlibyvali/Developer/projetcs/Mftp/test-build/bin")
-
-    # test_CLI
-    file(GLOB_RECURSE src "test_CLI/*.cpp")
-    file(GLOB_RECURSE header "test_CLI/*.h")
-    compile("test_CLI")
-
-    # test_libuv
-    file(GLOB_RECURSE src "test_libuv/*.cpp")
-    file(GLOB_RECURSE header "test_libuv/*.h")
-    compile("test_libuv")
-endfunction()
+    # build test _what
+    file ( GLOB_RECURSE src "test/${_what}/*.cpp" )
+    file ( GLOB_RECURSE header "test/${_what}/*.hpp" )
+    info ( STATUS "Test files: ${src}\n${header}" )
+    compile ( "${_what}" )
+endfunction ()

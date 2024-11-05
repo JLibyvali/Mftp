@@ -1,3 +1,7 @@
 [submodule "CLI"]
     path=libs/3rdpart/CLI11
     url = https://github.com/CLIUtils/CLI11.git
+
+[submodule "reproc++"]
+    path=libs/3rdpart/reproc
+    url = https://github.com/DaanDeMeyer/reproc.git
