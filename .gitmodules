@@ -2,6 +2,10 @@
     path=libs/3rdpart/CLI11
     url = https://github.com/CLIUtils/CLI11.git
 
-[submodule "reproc++"]
-    path=libs/3rdpart/reproc
-    url = https://github.com/DaanDeMeyer/reproc.git
+[submodule "tinyProcess"]
+    path=libs/3rdpart/tiny-process-library
+    url = git@gitlab.com:eidheim/tiny-process-library.git
+
+[submodule "asio"]
+    path=libs/3rdpart/asio
+    url = git@github.com:JLibyvali/asio.git 

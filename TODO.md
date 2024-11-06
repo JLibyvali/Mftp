@@ -1,2 +1,7 @@
 - [x] project skelton
-- [x] choose parse arguments library
+- [x] CLI11  library
+- [x] tinyProcess library
+- [x] asio library
+- [] sqlite cpp 
+- [] design server and client options, draw an Graph
+- [] design GUI with Qt6
