@@ -40,7 +40,8 @@ set ( _FALG_RK3566 CACHE STRING "Add compiler flags of RK3566 soc" )
 # -fstack-clash-protection "Generate code to prevent stack clash style attacks. When this option is enabled, the compiler will only allocate one page of stack space at a time and each page is accessed immediately after allocation. "
 # -funroll-all-loops "Unroll all loops, even if their number of iterations is uncertain when the loop is entered. This usually makes programs run more slowly.
 # -funroll-all-loops implies the same options as -funroll-loops,"
-set ( FLAG_DEBUG "-O0 -g3 -ggdb3 -fPIC -Wall -fexceptions -fstack-protector-strong -fstack-clash-protection" CACHE STRING
+# -fstack-usage "list all function stack usage"
+set ( FLAG_DEBUG "-O0 -g3 -ggdb3 -fPIC -Wall -fexceptions -fstack-protector-strong -fstack-clash-protection -fstack-usage" CACHE STRING
     "Add Compiler flag When cmake debug variant" )
 
 # ######################################################################################################################################################################################################
@@ -84,7 +85,6 @@ set ( FLAG_LINKER "-fuse-ld=gold -Wl,-Map=Symbols.map" CACHE STRING "Add some ba
 # _GLIBCXX_ASSERTIONS "When defined, enables extra error checking in the form of precondition assertions, such as bounds checking in strings and null pointer checks when dereferencing smart pointers."
 set ( MACRO_DEBUG "_FORTIFY_SOURCE=2 _GLIBCXX_ASSERTIONS" CACHE STRING "Add cmake macro" )
 
-
 # ######################################################################################################################################################################################################
 # Template error report
 # Clang flag
@@ -92,6 +92,8 @@ set ( MACRO_DEBUG "_FORTIFY_SOURCE=2 _GLIBCXX_ASSERTIONS" CACHE STRING "Add cmak
 # -fno-elide-type "Turns off elision in template type printing"
 # -fdiagnostics-show-template-tree "Template type diffing prints a text tree from single line"
 # -ftemplate-backtrace-limit "The default is 10, and the limit can be disabled with -ftemplate-backtrace-limit=0."
+# -fno-module-ts,-fno-deps-format "For clang-tidy when used gcc compile"
+set ( FLAG_TEMPLATE_ERROR "-fno-elide-type" CACHE STRING "Add template check flags" )
 
 # Init basic compier flag
 set ( CMAKE_C_FLAGS_DEBUG ${FLAG_DEBUG} )
@@ -102,37 +104,58 @@ set ( CMAKE_CXX_FLAGS_RELEASE ${CMAKE_C_FLAGS_RELEASE} )
 
 # function to add another compiler flag
 function ( add_debug_flag )
-    set ( options _arch_flag _small_link _perf_tools _sanitizer _debug_macro _check_build )
-    set ( multivalue _custom )
+    set ( options arch_flag small_link perf_tools sanitizer debug_macro check_build template_error )
+    set ( multivalue custom )
     cmake_parse_arguments ( PARSE_ARGV 0 _arg "${options}" "" "${multivalue}" )
+
+    set ( res_flag "" )
 
     # add some defined flags
     if ( _arg_arch_falg )
-        list ( APPEND CMAKE_C_FLAGS_DEBUG ${FLAG_X86_64} )
-    elseif ( _arg_small_link )
-        list ( APPEND CMAKE_C_FLAGS_DEBUG ${FLAG_LINKER_SMALL} )
-    elseif ( _arg_perf_tools )
-        list ( APPEND CMAKE_C_FLAGS_DEBUG ${FLAG_PERFTOOLS} )
-    elseif ( _arg_sanitizer )
-        list ( APPEND CMAKE_C_FLAGS_DEBUG ${FLAG_SANITIZER} )
-    elseif ( _arg_check_build )
-        list ( APPEND CMAKE_C_FLAGS_DEBUG ${FLAG_CHECK_BUILD} )
-    elseif ( _arg_debug_macro )
+        info ( STATUS "Set x86-64 flags: ${FLAG_X86_64}" )
+        string ( APPEND res_flag " ${FLAG_X86_64}" )
+    endif ()
+
+    if ( _arg_small_link )
+        info ( STATUS "Set Link small flags: ${FLAG_LINKER_SMALL}" )
+        string ( APPEND res_flag " ${FLAG_LINKER_SMALL}" )
+    endif ()
+
+    if ( _arg_perf_tools )
+        info ( STATUS "Set Perf tools related flags: ${FLAG_PERFTOOLS}" )
+        string ( APPEND res_flag " ${FLAG_PERFTOOLS}" )
+    endif ()
+
+    if ( _arg_sanitizer )
+        info ( STATUS "Set Sanitizer flags: ${FLAG_SANITIZER}" )
+        string ( APPEND res_flag " ${FLAG_SANITIZER}" )
+    endif ()
+
+    if ( _arg_check_build )
+        info ( STATUS "Set Check gcc build flags: ${FLAG_CHECK_BUILD}" )
+        string ( APPEND res_flag " ${FLAG_CHECK_BUILD}" )
+    endif ()
+
+    if ( _arg_template_error )
+        info ( STATUS "Set Template error check flags: ${FLAG_TEMPLATE_ERROR}" )
+        string ( APPEND res_flag " ${FLAG_TEMPLATE_ERROR}" )
+    endif ()
+
+    if ( _arg_debug_macro )
         foreach ( macro ${MACRO_DEBUG} )
             info ( STATUS "Set macro: ${macro}" )
             set ( ${macro} PARENT_SCOPE )
         endforeach ()
     endif ()
 
-    set ( CMAKE_CXX_FLAGS_DEBUG ${CMAKE_C_FLAGS_DEBUG} )
-
-    # Add other cust flags
+    # Add other custome flags
     if ( _arg_custom )
         foreach ( _flag ${_arg_custom} )
             info ( STATUS "Add Custom flag: ${_flag}" )
-            list ( APPEND CMAKE_C_FLAGS_DEBUG ${_flag} )
+            stirng ( APPEND CMAKE_C_FLAGS_DEBUG " ${_flag}" )
         endforeach ( _flag ${_arg_custom} )
-
-        set ( CMAKE_CXX_FLAGS_DEBUG ${CMAKE_C_FLAGS_DEBUG} )
     endif ()
+
+    set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} ${res_flag}" PARENT_SCOPE)
+    set ( CMAKE_CXX_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} ${res_flag}" PARENT_SCOPE )
 endfunction ()

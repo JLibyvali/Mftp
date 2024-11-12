@@ -1,0 +1,21 @@
+name: Clang-tidy static analyzer check
+run-name: ${{github.actor}} is running Code check.
+
+on: [push] 
+
+jobs: 
+    Clang-tidy: 
+        runs-on: ubuntu-latest
+        steps: 
+            - name: Checkout code
+              uses: actions/checkout@v3 
+
+            - name: install cmake 
+              uses: lukka/get-cmake@latest
+
+            - name: compile database
+            - run: echo Generating compile database at server ${{runner.os}}
+            - run: cmake -S . -B build -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+
+            - name: run clang-tidy
+            - run: echo Get clang-tidy

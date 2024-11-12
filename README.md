@@ -1,30 +1,35 @@
 # Manual
 # Server
-Mftp [subcommand] [options]  
-subcommand:  
-    user                    " ftp user related configs "
-    config                  " ftp configurations    "
-    port                    " ftp control port, default 2121 "
-options:
-    -d,--dir,--directory    "ftp server storage path "
-    --log                    "ftp output a log files  "
-    --backend               "ftp server run in backend "
+Mftp [subcommand] [options]    
+
+
+subcommand:   
+* user                    " ftp user related configs "  
+* config                  " ftp configurations    "    
+
+options:  
+* -d,--dir,--directory    "ftp server storage path "  
+* --log                    "ftp output a log files  "  
+* --backend               "ftp server run in backend "  
+* --port                  " ftp control port, default 2121 "  
+
+
 
 | config options |          detail                |
 | ---      | ---  |
-| space    | position of storage files            |
-| telnet   | enable telnet connection: default ON |
-| database | connect the database                 |
-| console  | entering server manage backend       |
-| port     | default console port, data port. default 2121 and 2222 |
+| --space    | position of storage files            |
+| --telnet   | enable telnet connection: default ON |
+| --database | connect the database                 |
+| --console  | entering server manage backend       |
+| --port     | default console port, data port. default 2121 and 2222 |
 
 | user options |                detail                                       |
 | ---           |   ---                                                      |
-| list [username] |  list all users information or specific user configs     |
-| add [username] [passwd] | add user account                                 |
-| del [username] [--clear] | delete a user account, clear it's files or not. |
-| set [username] [options] | Set user's  name,passwd,home,privilege          |
-| anonymous [options]      | Anonymous users configs                         |
+| --list [username] |  list all users information or specific user configs     |
+| --add [username] [passwd] | add user account                                 |
+| --del [username] [--clear] | delete a user account, clear it's files or not. |
+| --set [username] [options] | Set user's  name,passwd,home,privilege          |
+| --anonymous [options]      | Anonymous users configs                         |
 
 
 # Client

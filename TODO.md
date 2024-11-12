@@ -2,6 +2,10 @@
 - [x] CLI11  library
 - [x] tinyProcess library
 - [x] asio library
-- [] sqlite cpp 
-- [] design server and client options, draw an Graph
+- [x] source code of parse arguments
+- [x] design server and client options, draw an Graph
+- [] sqlite cpp library connection handler
 - [] design GUI with Qt6
+- [] using some benchmark to test code performance and connection performance
+- [] using clang-tidy to limit source code quality
+- [] design a Reactor framework, using multiple reactor framework to emulate proactor framework
