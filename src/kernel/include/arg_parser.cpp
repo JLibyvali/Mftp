@@ -4,7 +4,11 @@
 #include "preprocessor.hpp"
 
 #include <algorithm>
-#include <memory>
+#include <array>
+#include <functional>
+#include <map>
+#include <string>
+#include <string_view>
 
 using namespace ftp;
 
@@ -42,7 +46,7 @@ Arg_parser::Arg_parser(CLI::App &_app)
     m_ftp_options.M_opts.push_back(_app.add_option(m_cmdtext[5].first, m_ftp_options.m_Isbackend, m_cmdtext[5].second));
     std::for_each(
         m_ftp_options.M_opts.begin(), m_ftp_options.M_opts.end(),
-        [&](CLI::Option *_opt) { _opt->capture_default_str(); }
+        [&](CLI::Option *_opt_ptr) { _opt_ptr->capture_default_str(); }
     );
 
     // add user's options

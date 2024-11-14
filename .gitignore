@@ -1,3 +1,4 @@
 **/build
 **/.cache
 *.o
+!build/compile_commands.json

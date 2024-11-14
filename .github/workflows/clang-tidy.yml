@@ -13,14 +13,10 @@ jobs:
       - name: Install CMake
         uses: lukka/get-cmake@latest
 
-      - name: Install dependencies
-        run: sudo apt-get install -y clang clang-tidy ninja-build
+      - name: Install package
+        run: sudo apt-get install -y clang clang-tidy clang-tools clangd python3
 
-      - name: Generate compile database
+      - name: Executing analyzer check
         run: |
-          echo "Generating compile database at server ${{runner.os}}"
-          cmake -S . -B build -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+             echo "FINISHED: PATH:$PATH; PWD:$(pwd); N: $(nproc)"
 
-      - name: Build project
-        run: |
-            echo "Finish test" 
