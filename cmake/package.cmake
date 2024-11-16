@@ -1,4 +1,6 @@
-# Set for qt
+######################################################
+# Add library 
+######################################################
 function ( add_qt )
     set ( CMAKE_AUTOMOC ON )
     set ( CMAKE_AUTOUIC ON )
@@ -8,7 +10,6 @@ function ( add_qt )
     link_libraries ( Qt6::Core Qt6::Gui Qt6::Widgets )
 endfunction ()
 
-# CLI11
 function ( add_CLI11 )
     add_subdirectory ( ${CMAKE_SOURCE_DIR}/libs/3rdpart/CLI11 )
     link_libraries ( CLI11::CLI11 )
@@ -64,7 +65,19 @@ function ( add_Asio )
     link_libraries ( asio::asio )
 endfunction ()
 
+function (add_Libuv)
+   set(BUILD_SHARED_LIBS ON)
+   add_subdirectory(${CMAKE_SOURCE_DIR}/libs/3rdpart/libuv) 
+   link_libraries(libuv::libuv)
+endfunction()
+
+function (add_Reactor)
+   add_subdirectory(${CMAKE_SOURCE_DIR}/libs/reactor) 
+   link_libraries(reacotr)
+endfunction()
+####################################################
 # Add build test target name
+####################################################
 function ( add_test )
     set ( prefix arg )
     set ( options test_CLI11 test_Tinyprocess test_Libuv test_ASIO )

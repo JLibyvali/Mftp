@@ -3,19 +3,22 @@
     url = https://github.com/CLIUtils/CLI11.git
 [submodule "tinyProcess"]
     path=libs/3rdpart/tiny-process-library
-    url = git@gitlab.com:eidheim/tiny-process-library.git
+    url = https://gitlab.com/eidheim/tiny-process-library.git
 [submodule "asio"]
     path=libs/3rdpart/asio
     url = git@github.com:JLibyvali/asio.git 
 [submodule "json"]
     path=libs/3rdpart/json
-    url=git@github.com:nlohmann/json.gi
+    url=https://github.com/nlohmann/json.gi
 [submodule "iperf"]
     path=libs/3rdpart/iperf
-    url=git@github.com:esnet/iperf.git
+    url=https://github.com/esnet/iperf.git
 [submodule "benchmark"]
     path=libs/3rdpart/benchmark
-    url =git@github.com:google/benchmark.git
+    url =https://github.com/google/benchmark.git
 [submodule "Zeromq"]
     path=libs/3rdpart/cppzmq
-    url=git@github.com:zeromq/cppzmq.git
+    url=https://github.com/zeromq/cppzmq.git
+[submodule "libuv"]
+    path=libs/3rdpart/libuv
+    url = https://github.com/libuv/libuv.git

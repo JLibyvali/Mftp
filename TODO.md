@@ -4,8 +4,8 @@
 - [x] asio library
 - [x] source code of parse arguments
 - [x] design server and client options, draw an Graph
-- [] sqlite cpp library connection handler
-- [] design GUI with Qt6
-- [] using some benchmark to test code performance and connection performance
-- [] using clang-tidy to limit source code quality
+- [x] using clang-tidy to ensure source code quality
 - [] design a Reactor framework, using multiple reactor framework to emulate proactor framework
+- [] design GUI with Qt6
+- [] sqlite cpp library connection handler
+- [] using some benchmark to test code performance and connection performance
