@@ -73,14 +73,14 @@ endfunction()
 
 function (add_Reactor)
    add_subdirectory(${CMAKE_SOURCE_DIR}/libs/reactor) 
-   link_libraries(reacotr)
+   link_libraries(reactor)
 endfunction()
 ####################################################
 # Add build test target name
 ####################################################
 function ( add_test )
     set ( prefix arg )
-    set ( options test_CLI11 test_Tinyprocess test_Libuv test_ASIO )
+    set ( options test_CLI11 test_Tinyprocess test_Libuv test_ASIO test_Reactor)
     cmake_parse_arguments ( PARSE_ARGV 0 ${prefix} "${options}" "" "" )
     add_subdirectory ( ${CMAKE_SOURCE_DIR}/test )
 

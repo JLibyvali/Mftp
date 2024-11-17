@@ -8,10 +8,14 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 file(GLOB_RECURSE all_srcs "*.cpp")
 
-add_library(${PROJECT_NAME} STATIC ${all_srcs})
-target_include_directories(${PROJECT_NAME} PRIVATE
-.
-include
+add_library(${PROJECT_NAME} ${all_srcs})
+
+target_include_directories(${PROJECT_NAME}
+PUBLIC  # Why set as PUBLIC? May reactor.hpp contains another header files definition 
+${CMAKE_CURRENT_SOURCE_DIR}
+${CMAKE_CURRENT_SOURCE_DIR}/include
+INTERFACE
+${CMAKE_CURRENT_SOURCE_DIR}/interface
 )
 
 

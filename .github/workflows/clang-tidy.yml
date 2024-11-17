@@ -18,5 +18,5 @@ jobs:
 
       - name: Executing analyzer check
         run: |
-              ./clang-tidy-check.sh check_all
+              ./clang-tidy-check.sh check
 

@@ -1,10 +1,8 @@
-#include "interface.hpp"
+#include "constant.hpp"
 
-#include <ctime>
+// Exception and error code
 
-using namespace reactor;
-
-bool any_error(int _var)
+bool reactor::any_error(int _var)
 {
     auto tmp = static_cast<StatusCode>(_var);
 
