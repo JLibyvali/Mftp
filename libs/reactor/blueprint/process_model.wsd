@@ -1,0 +1,61 @@
+@startuml
+
+package model.main_process <<Rectangle>> #IndianRed{
+     annotation "Description" as Desc #LightGray
+     Desc : "Prepare resources like: socker,fd,pool create" 
+     Desc : "Create process layout"
+     Desc : "Handle all listen"
+     Desc : "Rin Main reactor"
+
+    class ResouceInit {
+        "All Model process information"
+        class proc_info
+        ..
+        "Generate sub process,\
+        \n Set subprocess signal handler,\
+        \nkeep subprocess blocked"
+        + void process() 
+
+    }
+}
+
+package model.con_process <<Rectangle>> #IndianRed{
+    annotation "Description" as Desc #LightGray
+    Desc : "Maintain sub reactor"
+    Desc : "Handl all connection work"
+
+}
+
+package model.data_process <<Rectangle>> #IndianRed{
+    annotation "Description" as Desc #LightGray
+    Desc : "Maintain sub reactor"
+    Desc : "Handle all data transmission work"
+}
+
+class Sigact #LightYellow{
+    "Usign Linux Real time signal API"
+    " For better control process flow"
+    + SIGIO,SIGINT... some special handler
+    + void sig_init()
+    + sig_handelr()
+}
+
+class Channel #LightBlue{
+    "Wrap all fd,socket,IO operations"
+}
+
+class Thread_pool #LightBlue{
+    "Higher Abstract of thread pool build"
+}
+
+note "Signal Should not be omited, \n signal/semphore to synchrnous process work flow.\nSignal handler need set as Rentrant for thread safe" as sig #Yellow
+main_process <|-- con_process : Real time signal
+main_process <|-- data_process : Real time signal
+main_process .. sig
+sig .. con_process
+sig .. data_process
+Sigact .. sig
+
+
+
+@enduml

@@ -22,7 +22,7 @@ struct reactor::Mprocs
     static pid_t m_main_pid, m_con_pid, m_data_pid;
 
     // fd information
-    
+
 };
 
 pid_t reactor::Mprocs::m_main_pid, reactor::Mprocs::m_con_pid, reactor::Mprocs::m_data_pid;
@@ -79,7 +79,7 @@ void ResourceInit::procs_init()
     m_nproc = get_nproc();
     if (any_error(m_nproc))
         throw std::runtime_error{"None m_nproc"};
-    Mprocs::m_main_pid = getpid();
 
     // Generate sub process
+    Mprocs::m_main_pid = getpid();
 }
