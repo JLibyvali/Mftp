@@ -26,7 +26,7 @@ public:
      * @param _timeout set blocked timeout, default no.
      * @return int
      */
-    int  listen(int _timeout = 0);
+    int  listen(int _timeout = 0, bool _handler = false);
 
     /**
      * @brief Set specific signal handler, default RT signal no handler, standard signal using system default handler.
@@ -38,14 +38,18 @@ public:
 
 private:
 
-    // sigaction() parameters about.
-    int                     m_worksig = SIGRTMIN + 1;
-    sigset_t                m_cur_sigset, m_prev_sigset;
-    struct sigaction        m_sa;
-    siginfo_t               m_siginfo;
-    struct signalfd_siginfo m_sig_fdinfo;
-    static void                    handler(int _sig, siginfo_t *_info_ptr, void *_ucontext_ptr);
+    SigAction(const SigAction &_src)                                   = delete;
+    SigAction                        &operator=(const SigAction &_src) = delete;
 
-    volatile sig_atomic_t   m_sigflag;  // information flag between process and handler.
+    // sigaction() parameters about.
+    int                               m_worksig;
+    struct sigaction                  m_sa;
+    sigset_t                          m_cur_sigset, m_prev_sigset;
+    siginfo_t                         m_siginfo;
+    static void                       work_handler(int _sig, siginfo_t *_info_ptr, void *_ucontext_ptr);
+
+    // Other signal information related
+    struct signalfd_siginfo           m_sig_fdinfo;
+    static volatile std::sig_atomic_t m_sigflag;  // information flag between process and handler.
 };
 }  // namespace reactor

@@ -81,5 +81,4 @@ void ResourceInit::procs_init()
         throw std::runtime_error{"None m_nproc"};
 
     // Generate sub process
-    Mprocs::m_main_pid = getpid();
 }

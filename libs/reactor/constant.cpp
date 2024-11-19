@@ -39,7 +39,7 @@ int         ret_error(reactor::StatusCode _code, const std::string _custom)
     std::stringstream ss;
     ss << RED << "[Error INFORMATION] ";
     ss << "At " << __func__ << " " << __LINE__ << " :";
-    ss << str << " : "<<_custom<<" ";
+    ss << str << " : " << _custom << " ";
     ss << NONE;
 
     // Update error info
@@ -49,7 +49,7 @@ int         ret_error(reactor::StatusCode _code, const std::string _custom)
     return static_cast<int>(_code);
 }
 
-bool reactor::any_error(int _val)
+inline bool reactor::any_error(int _val)
 
 {
     auto code = static_cast<StatusCode>(_val);
@@ -57,10 +57,6 @@ bool reactor::any_error(int _val)
     switch (code)
     {
     case reactor::StatusCode::Normal_err:
-        {
-            return true;
-            break;
-        }
     case reactor::StatusCode::Func_retError:
         {
             return true;
@@ -68,5 +64,20 @@ bool reactor::any_error(int _val)
         }
 
     default: return false;
+    }
+}
+
+inline std::string reactor::any_info(int _val)
+{
+    auto code = static_cast<StatusCode>(_val);
+
+    switch (code)
+    {
+    case reactor::StatusCode::Normal_err:
+    case reactor::StatusCode::Func_retError:
+        {
+            return error_info;
+        }
+    default: return "Error When get error information.";
     }
 }

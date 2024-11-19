@@ -18,8 +18,8 @@ enum class StatusCode : int
 };
 
 int         ret_error(StatusCode _code,const std::string _custom = "");
-bool        any_error(int _val);
-std::string any_info(int _val);
+inline bool        any_error(int _val);
+inline std::string any_info(int _val);
 
 // Some system resource initial.
 class ResourceInit;
@@ -27,7 +27,10 @@ class ResourceInit;
 // Linux signal wrap
 class SigAction;
 
-// thread poll, memory pool, construct pool
+// Wrap for all fd
+class Channel;
+
+// thread poll, memory pool,object  pool
 class Pool;
 
 }  // namespace reactor

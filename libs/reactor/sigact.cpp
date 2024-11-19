@@ -4,6 +4,7 @@
 #include "debug.hpp"
 
 #include <csignal>
+#include <cstddef>
 #include <format>
 #include <iostream>
 #include <sstream>
@@ -11,7 +12,7 @@
 
 using namespace reactor;
 
-SigAction::SigAction()
+SigAction::SigAction() : m_worksig(SIGRTMIN + 1)
 {
     // Init sigset mask
     sigemptyset(&m_cur_sigset);
@@ -20,7 +21,8 @@ SigAction::SigAction()
 
     // init sigaction struct
     sigemptyset(&m_sa.sa_mask);
-    m_sa.sa_sigaction = handler;
+    m_sa.sa_handler   = NULL;          // Set At behind interface.
+    m_sa.sa_sigaction = NULL;
     m_sa.sa_mask      = m_cur_sigset;  // Blocking another arrived second signal, when in signal handler.
     m_sa.sa_flags     = SA_RESTART | SA_SIGINFO;
 }
@@ -41,18 +43,46 @@ int SigAction::notify(pid_t _proc)
     return 0;
 }
 
-int SigAction::listen(int _timeout)
+int SigAction::listen(int _timeout, bool _handler)
 {
     if (_timeout < 0)
         return ret_error(StatusCode::Normal_err);
+
+    // If handler flag set, use handler when signal notified
+    if (_handler)
+    {
+        if (any_error(sigprocmask(SIG_BLOCK, &m_cur_sigset, &m_prev_sigset)))
+            return ret_error(StatusCode::Func_retError);
+
+        // Set handler
+        m_sa.sa_sigaction = work_handler;
+        if (any_error(sigaction(m_worksig, &m_sa, NULL)))
+            return ret_error(StatusCode::Func_retError);
+    }
+    else
+    {
+        // block all signal before sigwaitinfo
+        if (any_error(sigprocmask(SIG_BLOCK, &m_cur_sigset, &m_prev_sigset)))
+            return ret_error(StatusCode::Func_retError);
+
+        int sig = sigwaitinfo(&m_cur_sigset, &m_siginfo);
+        if (any_error(sig))
+            return ret_error(StatusCode::Func_retError);
+
+        // do more work.
+    }
+
+    return ret_error(StatusCode::Normal_err);
 }
 
-void SigAction::handler(int _sig, siginfo_t *_info_ptr, void *_ucontext_ptr)
+volatile std::sig_atomic_t SigAction::m_sigflag = false;
+
+void                       SigAction::work_handler(int _sig, siginfo_t *_info_ptr, void *_ucontext_ptr)
 {
     auto print_siginfo = [&]()
     {
-        std::stringstream ss;
-        std::osyncstream  out{std::cout};
+        thread_local std::stringstream ss;
+        std::osyncstream               out{std::cout};
 
         ss << BLUE << "[Signal Information] :\n";
         ss << std::format(
@@ -67,8 +97,7 @@ void SigAction::handler(int _sig, siginfo_t *_info_ptr, void *_ucontext_ptr)
         out << ss.str() << std::endl;
     };
 
-    // print_siginfo();
-
+    // Default handler print work_sig information.
+    print_siginfo();
+    m_sigflag = true;
 }
-
-void SigAction::set_sigcb(int _sig) {}
