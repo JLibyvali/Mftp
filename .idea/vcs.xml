@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/libs/3rdpart/CLI11" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/libs/3rdpart/asio" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/libs/3rdpart/benchmark" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/libs/3rdpart/cppzmq" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/libs/3rdpart/iperf" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/libs/3rdpart/json" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/libs/3rdpart/libuv" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/libs/3rdpart/tiny-process-library" vcs="Git" />
+  </component>
+</project>

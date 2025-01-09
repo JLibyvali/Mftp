@@ -1,21 +1,26 @@
-cmake_minimum_required ( VERSION 3.28 )
-project ( Mftp )
+cmake_minimum_required(VERSION 3.28)
+project(Mftp)
 
-# config
-include ( cmake/toolchain.cmake )
-include ( cmake/package.cmake )
-add_debug_flag(check_build template_error)
+# ----------------------------------------------------------
+# Include cmake modules and Headers
+# ----------------------------------------------------------
+include(cmake/api.cmake)
+include(cmake/toolchain.cmake)
+include(cmake/package.cmake)
+include_directories(include include/kernel include/gui)
 
-
-# add_CLI11()
-
-# include_directories(include)
-# include_directories(src/kernel/include)
-# add_subdirectory(src)
-# add_executable(${PROJECT_NAME} ${SRCS_FILES})
-
-# add test 
+# ----------------------------------------------------------
+# Add libraries configurations
+# ----------------------------------------------------------
 add_CLI11()
-add_Libuv()
+
+# ----------------------------------------------------------
+# Project Building
+# ----------------------------------------------------------
+add_subdirectory(src)
+
+# ----------------------------------------------------------
+# Build Test Objectsc
+# ----------------------------------------------------------
 add_Reactor()
 add_test(test_Libuv test_Reactor)

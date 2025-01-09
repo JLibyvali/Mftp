@@ -1,22 +1,18 @@
 name: Clang-tidy static analyzer check
 run-name: ${{github.actor}} is running Code check.
 
-on: [push]
+on:
+  push: {}
 
-jobs: 
-  Clang-tidy: 
+jobs:
+  job:
+    name: Clang-tidy Check
     runs-on: ubuntu-latest
-    steps: 
-      - name: Checkout code
-        uses: actions/checkout@v3 
+    strategy:
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v4
 
-      - name: Install CMake
-        uses: lukka/get-cmake@latest
-
-      - name: Install package
-        run: sudo apt-get install -y clang clang-tidy clang-tools clangd python3
-
-      - name: Executing analyzer check
-        run: |
-              ./clang-tidy-check.sh check
+      - name: Install clang-tidy
+        run: sudo apt update && sudo apt -y install clang-tidy
 

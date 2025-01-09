@@ -1,4 +1,6 @@
-**/build
-**/.cache
-*.o
+build/*
 !build/compile_commands.json
+.cache
+cmake-build-debug
+*.o
+*.out

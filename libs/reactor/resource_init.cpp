@@ -77,7 +77,7 @@ const int ResourceInit::get_nproc()
 void ResourceInit::procs_init()
 {
     m_nproc = get_nproc();
-    if (any_error(m_nproc))
+    if (reactor::any_error(m_nproc))
         throw std::runtime_error{"None m_nproc"};
 
     // Generate sub process

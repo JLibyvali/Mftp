@@ -48,36 +48,3 @@ int         ret_error(reactor::StatusCode _code, const std::string _custom)
 
     return static_cast<int>(_code);
 }
-
-inline bool reactor::any_error(int _val)
-
-{
-    auto code = static_cast<StatusCode>(_val);
-
-    switch (code)
-    {
-    case reactor::StatusCode::Normal_err:
-    case reactor::StatusCode::Func_retError:
-        {
-            return true;
-            break;
-        }
-
-    default: return false;
-    }
-}
-
-inline std::string reactor::any_info(int _val)
-{
-    auto code = static_cast<StatusCode>(_val);
-
-    switch (code)
-    {
-    case reactor::StatusCode::Normal_err:
-    case reactor::StatusCode::Func_retError:
-        {
-            return error_info;
-        }
-    default: return "Error When get error information.";
-    }
-}

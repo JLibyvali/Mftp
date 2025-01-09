@@ -15,17 +15,7 @@
             "cwd": "${workspaceRoot}",
             "valuesFormatting": "parseText",
             "stopAtEntry": true
-        },
-        {
-            "name": "LLDB",
-            "type": "lldb-mi",
-            "request": "launch",
-            "target": "${command:cmake.launchTargetPath}",
-            "cwd": "${workspaceRoot}",
-            "valuesFormatting": "parseText",
-            "stopAtEntry": true,
-        },
-
+        }
     ]
 
 }
