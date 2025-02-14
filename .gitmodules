@@ -1,24 +1,24 @@
-[submodule "CLI"]
-    path=libs/3rdpart/CLI11
+[submodule "CLI11"]
+    path= libs/3rdpart/CLI11
     url = https://github.com/CLIUtils/CLI11.git
-[submodule "tinyProcess"]
-    path=libs/3rdpart/tiny-process-library
-    url = https://gitlab.com/eidheim/tiny-process-library.git
 [submodule "asio"]
-    path=libs/3rdpart/asio
-    url = git@github.com:JLibyvali/asio.git 
+    path= libs/3rdpart/asio
+    url = https://github.com/JLibyvali/asio.git
+[submodule "tinyProcess"]
+    path= System/3rdpart/tiny-process-library
+    url = https://gitlab.com/eidheim/tiny-process-library.git
 [submodule "json"]
-    path=libs/3rdpart/json
-    url=https://github.com/nlohmann/json.gi
+    path= System/3rdpart/json
+    url = https://github.com/nlohmann/json.git
 [submodule "iperf"]
-    path=libs/3rdpart/iperf
-    url=https://github.com/esnet/iperf.git
+    path= System/3rdpart/iperf
+    url = https://github.com/esnet/iperf.git
 [submodule "benchmark"]
-    path=libs/3rdpart/benchmark
-    url =https://github.com/google/benchmark.git
+    path= System/3rdpart/benchmark
+    url = https://github.com/google/benchmark.git
 [submodule "Zeromq"]
-    path=libs/3rdpart/cppzmq
-    url=https://github.com/zeromq/cppzmq.git
+    path= System/3rdpart/cppzmq
+    url = https://github.com/zeromq/cppzmq.git
 [submodule "libuv"]
-    path=libs/3rdpart/libuv
+    path= System/3rdpart/libuv
     url = https://github.com/libuv/libuv.git

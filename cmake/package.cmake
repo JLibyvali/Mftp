@@ -4,6 +4,7 @@
 function ( add_qt )
     set ( CMAKE_AUTOMOC ON )
     set ( CMAKE_AUTOUIC ON )
+    set ( AUTOUIC_SEARCH_PATHS ${CMAKE_SOURCE_DIR}/src/gui )
     set ( CMAKE_AUTORCC ON )
 
     find_package ( Qt6 REQUIRED COMPONENTS Widgets Core Gui )
