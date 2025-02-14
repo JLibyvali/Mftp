@@ -1,16 +1,24 @@
-#include "CLI/CLI.hpp"
 #include "Arg_parser.hpp"
-
+#include "CLI/CLI.hpp"
 
 int main(int argc, char *argv[])
 {
-    // parse input arguments
+    //------------------------------------------------------------------------------------------------------
+    // CLI11 object features.
+    //------------------------------------------------------------------------------------------------------
     CLI::App app("Mftp is a convenient FTP solution ");
-    argv = app.ensure_utf8(argv);
+    app.footer(R"(Example:
+    ' ./Mftp  ', Default FTP server will listen at port 2121, and will use port 2222 to transcation data.
+    './Mftp --log ', Set output log file.  
+    ' ./Mftp --backend --log ', Backend work.  
+    )");
 
-    ftp::Arg_parser my_parser(app);
+    argv = app.ensure_utf8(argv);
+    app.require_subcommand(1);
+
+    ftp::ArgParser my_parser(app);
     my_parser.Arg_handler_set(app);
-    
+
     CLI11_PARSE(app, argc, argv);
 
     return 0;

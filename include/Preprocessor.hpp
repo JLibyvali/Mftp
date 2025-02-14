@@ -1,3 +1,14 @@
+/**
+ * @file Preprocessor.hpp
+ * @author Jlibyvali
+ * @brief This file aimed to collect all `macro` and `Global variable` declaration here, for better manage.
+ * The define and initialization work will be done in `init.cpp`.
+ * @version 0.1
+ * @date 2025-02-14
+ *
+ * @copyright Copyright (c) 2025
+ *
+ */
 #pragma once
 #include "Config.hpp"
 #include "User.hpp"
@@ -8,23 +19,31 @@
 #include <string>
 #include <string_view>
 
-/**
- * @brief Interface file include almost class
- *
- */
-
 namespace ftp
 {
 
-// class for parse program arguments
-#define FTP_CMDTEXT_LEN 50
+#define FTP_CMDTEXT_LEN 50  // The Mftp program all arguments size, when used in cli.
+#define FTP_FS_CMDNUM   17  // FTP-server commands num.
 #define FTP_SUBCMD_NUM  2
 #define FTP_OPT_NUM     4
-#define FTP_FS_CMDNUM   17
+
+/**
+ * @brief The Mftp program configuration home in `~/.local/share/Mftp`.
+ */
 static const std::string                                                  base_dir;
-static const std::array<std::string, FTP_FS_CMDNUM>                       fs_cmd_text;
-static const std::map<std::string, std::function<void(std::string_view)>> fs_cmd;
-class Arg_parser;
+
+/**
+ * @brief FTP server commands name string array.
+ */
+static const std::array<std::string, FTP_FS_CMDNUM>                       fserver_cmd_text;
+
+/**
+ * @brief FTP server commands name-function map.
+ */
+static const std::map<std::string, std::function<void(std::string_view)>> fserver_cmd;
+
+// class for parse program arguments.
+class ArgParser;
 
 // class fot user subcommand interface
 void user_interface();

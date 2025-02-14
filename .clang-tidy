@@ -99,8 +99,6 @@ CheckOptions:
     value: lower_case
   - key: readability-identifier-naming.VirtualMethodCase
     value: lower_case
-  - key: readability-identifier-naming.VirtualMethodSuffix
-    value: _virt
 # function parameter identifier rules
   - key: readability-identifier-naming.ParameterCase
     value: lower_case
@@ -120,8 +118,6 @@ CheckOptions:
     value: lower_case
   - key: readability-identifier-naming.LocalPointerCase
     value: lower_case
-  - key: readability-identifier-naming.LocalPointerSuffix
-    value: _ptr
   - key: readability-identifier-naming.StaticConstantCase
     value: aNy_CasE
 # Misc
