@@ -36,10 +36,10 @@ public:
      */
     void set_sigcb(int _sig);
 
-private:
+    SigAction(const SigAction &_src)            = delete;
+    SigAction &operator=(const SigAction &_src) = delete;
 
-    SigAction(const SigAction &_src)                                   = delete;
-    SigAction                        &operator=(const SigAction &_src) = delete;
+private:
 
     // sigaction() parameters about.
     int                               m_worksig;

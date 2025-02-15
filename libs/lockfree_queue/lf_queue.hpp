@@ -1,17 +1,26 @@
 /**
- * First version edition based on CAS.
+ * @file lf_queue.hpp
+ * @author JLibyvali  -->(https://github.com/JLibyvali)
+ * @brief Implemented A lock free queue via C++ CAS
+ * @version 0.1
+ * @date 2025-02-15
+ *
+ * @copyright Copyright (c) 2025
+ *
  */
-
 #pragma once
-#include "Event.hpp"
 
 #include <atomic>
 #include <boost/noncopyable.hpp>
 
-namespace lf_que
+namespace lfque
 {
 
-// Concept required that given type moveable.
+/**
+ * @brief Required type is MoveAble.
+ *
+ * @tparam T Generic Data Type.
+ */
 template <typename T>
 concept has_moveable = requires {
     typename T::value_type;
@@ -25,7 +34,7 @@ concept has_moveable = requires {
  */
 template <typename DataType>
     requires has_moveable<DataType>
-class LockFreeQueue final : public boost::noncopyable
+class LFQueue final : private boost::noncopyable
 {
 
 private:
@@ -39,7 +48,7 @@ private:
         std::atomic<Node *> next;
         std::atomic<Node *> prev;
 
-        Node()  = default;
+        explicit Node(DataType &_data);
         ~Node() = default;
     };
 
@@ -47,19 +56,26 @@ private:
     std::atomic<Node *> m_head;
     std::atomic<Node *> m_tail;
 
+    /**
+     * @brief Helper function for move semantic
+     */
+    void                swapfrom(LFQueue<DataType> &_src) noexcept;
+
 public:
 
-    explicit LockFreeQueue(DataType &_data);
-    ~LockFreeQueue() = default;
+    LFQueue() : LFQueue(DataType()) {}
 
-    LockFreeQueue(LockFreeQueue<DataType> &&_src) noexcept;
-    LockFreeQueue<DataType> &operator=(LockFreeQueue<DataType> &&_lhs) noexcept;
+    explicit LFQueue(DataType &_data);
+    ~LFQueue() = default;
 
-    [[nodiscard]] bool       empty() const;
+    LFQueue(LFQueue<DataType> &&_src) noexcept;
+    LFQueue<DataType> &operator=(LFQueue<DataType> &&_lhs) noexcept;
 
-    int                      push(DataType &_data);
-    int                      push(DataType &&_data);
-    DataType                 pop();
+    [[nodiscard]] bool empty() const;
+
+    int                push(DataType &_data);
+    int                push(DataType &&_data);
+    DataType           pop();
 };
 
-}  // namespace lf_que
+}  // namespace lfque

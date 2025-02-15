@@ -1,7 +1,7 @@
 #include "sigact.hpp"
 
 #include "constant.hpp"
-#include "debug.hpp"
+#include "debug.h"
 
 #include <csignal>
 #include <cstddef>
@@ -84,7 +84,7 @@ void                       SigAction::work_handler(int _sig, siginfo_t *_info_pt
         thread_local std::stringstream ss;
         std::osyncstream               out{std::cout};
 
-        ss << BLUE << "[Signal Information] :\n";
+        ss << LOG_BLUE << "[Signal Information] :\n";
         ss << std::format(
             "signal number: {}, signal code: {}, signal associated value: {}\n", _info_ptr->si_signo,
             _info_ptr->si_code, _info_ptr->si_value.sival_int
@@ -93,6 +93,7 @@ void                       SigAction::work_handler(int _sig, siginfo_t *_info_pt
            << (_info_ptr->si_code == SI_QUEUE ? "User sigqueue()" : "")
            << (_info_ptr->si_code == SI_KERNEL ? "Kernel" : "") << " ";
         ss << "Sender process: " << _info_ptr->si_pid << ", user: " << _info_ptr->si_uid << "\n";
+        ss<<LOG_NONE;
 
         out << ss.str() << std::endl;
     };

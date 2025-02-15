@@ -4,21 +4,31 @@ project ( Mftp VERSION 0.1.0 )
 # ----------------------------------------------------------
 # Include cmake modules and Headers
 # ----------------------------------------------------------
-include ( cmake/api.cmake )
-include ( cmake/toolchain.cmake )
-include ( cmake/package.cmake )
+list ( APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake" )
+include ( Api )
+include ( ToolChain )
+include ( Package )
+
+# include ( Test )
+include ( CTest )
 include_directories ( include include/kernel include/gui )
 
 # ----------------------------------------------------------
 # Add libraries configurations
 # ----------------------------------------------------------
+add_Boost()
 add_CLI11 ()
+add_Asio()
+add_Tinyprocess()
+add_Reactor()
+add_lockfree_queue()
 
 # ----------------------------------------------------------
 # Project Building
 # ----------------------------------------------------------
-add_subdirectory ( src )
+# add_subdirectory ( src )
 
 # ----------------------------------------------------------
 # Build Test Objectsc
 # ----------------------------------------------------------
+add_subdirectory ( test )

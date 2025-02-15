@@ -1,6 +1,6 @@
 #include "constant.hpp"
 
-#include "debug.hpp"
+#include "debug.h"
 
 #include <sstream>
 #include <string>
@@ -37,10 +37,10 @@ int         ret_error(reactor::StatusCode _code, const std::string _custom)
     }
 
     std::stringstream ss;
-    ss << RED << "[Error INFORMATION] ";
+    ss << LOG_RED << "[Error INFORMATION] ";
     ss << "At " << __func__ << " " << __LINE__ << " :";
     ss << str << " : " << _custom << " ";
-    ss << NONE;
+    ss << LOG_NONE;
 
     // Update error info
     auto temp = ss.str();

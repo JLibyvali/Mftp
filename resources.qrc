@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/Icons"/>
+    <qresource prefix="/Background"/>
+    <qresource prefix="/Qss">
+        <file>components/SyNet.qss</file>
+        <file>components/SpyBot.qss</file>
+        <file>components/side_light.qss</file>
+        <file>components/side_drak.qss</file>
+        <file>components/Obit.qss</file>
+        <file>components/menu.qss</file>
+        <file>components/mainStyle.qss</file>
+    </qresource>
+</RCC>

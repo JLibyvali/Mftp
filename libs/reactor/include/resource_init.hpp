@@ -32,17 +32,18 @@ public:
      */
     void                 procs_init();
 
+    ResourceInit(const ResourceInit &_src)            = delete;
+    ResourceInit &operator=(const ResourceInit &_src) = delete;
+
 private:
 
     // generate nprocs process
     const int get_nproc();
 
-    ResourceInit()                                                         = default;
-    ~ResourceInit()                                                        = default;
-    ResourceInit(const ResourceInit &_src)                                 = delete;
-    ResourceInit                      &operator=(const ResourceInit &_src) = delete;
+    ResourceInit()                             = default;
+    ~ResourceInit()                            = default;
 
-    int                                m_nproc                             = -1;
+    int                                m_nproc = -1;
     static std::mutex                  m_mutex;
     static std::atomic<ResourceInit *> m_instance;
 };

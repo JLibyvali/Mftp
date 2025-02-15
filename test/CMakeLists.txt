@@ -1,17 +1,13 @@
-cmake_minimum_required(VERSION 3.28)
-project(Test)
+include ( CTest )
 
-macro(compile _name)
-    add_executable(${_name} ${src} ${header})
-endmacro(compile _name)
+add_executable ( test_cli11 test_CLI11/cli.cpp test_CLI11/cli.hpp )
+target_link_libraries ( test_cli11 PRIVATE CLI11::CLI11 )
 
-# Build given name test target
-function(build_test _what)
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY test)
+add_executable ( test_reactor treactor.cpp )
+target_link_libraries ( test_reactor PRIVATE reactor )
 
-    # build test _what
-    file(GLOB_RECURSE src "test/${_what}/*.cpp")
-    file(GLOB_RECURSE header "test/${_what}/*.hpp")
-    info("Test files: ${src}\n${header}")
-    compile("${_what}")
-endfunction()
+add_executable ( test_tinyp tp.cpp )
+target_link_libraries ( test_tinyp PRIVATE tiny-process-library::tiny-process-library )
+
+add_executable ( test_lfqueue test_lfqueue.cpp )
+target_link_libraries ( test_lfqueue PRIVATE lockfree_queue benchmark::benchmark )

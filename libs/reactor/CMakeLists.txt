@@ -9,11 +9,10 @@ set ( CMAKE_EXPORT_COMPILE_COMMANDS ON )
 
 set ( all_srcs
     ./constant.cpp
-    ./pool.cpp
     ./resource_init.cpp
     ./sigact.cpp
-    CACHE INTERNAL 
-    "Reacotr's library sources")
+    CACHE INTERNAL
+    "Reactor's library sources" )
 
 add_library ( ${PROJECT_NAME} ${all_srcs} )
 
