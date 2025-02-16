@@ -28,7 +28,6 @@ public:
 
     /**
      * @brief Init work process pool
-     *
      */
     void                 procs_init();
 
@@ -38,7 +37,7 @@ public:
 private:
 
     // generate nprocs process
-    const int get_nproc();
+    [[nodiscard]] const int get_nproc() const;
 
     ResourceInit()                             = default;
     ~ResourceInit()                            = default;

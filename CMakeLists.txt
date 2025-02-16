@@ -9,19 +9,18 @@ include ( Api )
 include ( ToolChain )
 include ( Package )
 
-# include ( Test )
-include ( CTest )
 include_directories ( include include/kernel include/gui )
 
 # ----------------------------------------------------------
-# Add libraries configurations
+# Add libraries target
 # ----------------------------------------------------------
-add_Boost()
+add_Boost ()
 add_CLI11 ()
-add_Asio()
-add_Tinyprocess()
-add_Reactor()
-add_lockfree_queue()
+add_Asio ()
+add_Tinyprocess ()
+add_Benchmark ()
+add_CustomLib()
+
 
 # ----------------------------------------------------------
 # Project Building

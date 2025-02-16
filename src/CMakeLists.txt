@@ -1,9 +1,7 @@
 # ----------------------------------------------------------
 # Project Building
 # ----------------------------------------------------------
-include ( ${CMAKE_SOURCE_DIR}/cmake/package.cmake )
-add_lockfree_queue()
+add_executable ( ${PROJECT_NAME} main.cpp)
 
-add_executable ( ${PROJECT_NAME} )
-target_link_libraries ( ${PROJECT_NAME} PRIVATE ${SELF_LIBS} )
+target_link_libraries ( ${PROJECT_NAME} PRIVATE ${SELF_LIBS} CLI11::CLI11 )
 add_subdirectory ( kernel )

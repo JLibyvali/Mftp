@@ -10,8 +10,9 @@
  */
 #pragma once
 
+#include "boost/noncopyable.hpp"
+
 #include <atomic>
-#include <boost/noncopyable.hpp>
 
 namespace lfque
 {
@@ -34,7 +35,7 @@ concept has_moveable = requires {
  */
 template <typename DataType>
     requires has_moveable<DataType>
-class LFQueue final : private boost::noncopyable
+class [[deprecated("IT's not complete NOW!!")]] LFQueue final : private boost::noncopyable
 {
 
 private:
@@ -48,6 +49,7 @@ private:
         std::atomic<Node *> next;
         std::atomic<Node *> prev;
 
+        Node();
         explicit Node(DataType &_data);
         ~Node() = default;
     };
@@ -63,11 +65,10 @@ private:
 
 public:
 
-    LFQueue() : LFQueue(DataType()) {}
+    LFQueue();
+    ~LFQueue();
 
     explicit LFQueue(DataType &_data);
-    ~LFQueue() = default;
-
     LFQueue(LFQueue<DataType> &&_src) noexcept;
     LFQueue<DataType> &operator=(LFQueue<DataType> &&_lhs) noexcept;
 
@@ -79,3 +80,5 @@ public:
 };
 
 }  // namespace lfque
+
+#include "lf_queue.tpp"

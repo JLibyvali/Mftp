@@ -10,4 +10,7 @@ add_executable ( test_tinyp tp.cpp )
 target_link_libraries ( test_tinyp PRIVATE tiny-process-library::tiny-process-library )
 
 add_executable ( test_lfqueue test_lfqueue.cpp )
-target_link_libraries ( test_lfqueue PRIVATE lockfree_queue benchmark::benchmark )
+target_link_libraries ( test_lfqueue PRIVATE benchmark::benchmark PRIVATE lockfree_queue )
+
+add_executable ( test_threadpool test_threads.cpp )
+target_link_libraries ( test_threadpool PRIVATE threadpool)

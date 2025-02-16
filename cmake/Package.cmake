@@ -59,25 +59,15 @@ function ( add_Asio )
     endif ()
 endfunction ()
 
-# -----------------------------------------------------------------------------------#
-# Add Self library
-# -----------------------------------------------------------------------------------#
-macro ( add_lockfree_queue )
-    set ( lf_srcs ${CMAKE_SOURCE_DIR}/libs/lockfree_queue/lf_queue.hpp ${CMAKE_SOURCE_DIR}/libs/lockfree_queue/lf_queue.cpp )
-    add_library ( lockfree_queue ${lf_srcs} )
-    target_include_directories ( lockfree_queue PUBLIC ${CMAKE_SOURCE_DIR}/libs/lockfree_queue )
-
-    if ( Boost_FOUND )
-        target_link_libraries ( lockfree_queue PRIVATE Boost::headers )
-    elseif ()
-        message ( FATAL_ERROR "Can't find Boost Library" )
-    endif ()
-
-    # Add to target list
-    list ( APPEND SELF_LIBS lockfree_queue )
-endmacro ( add_lockfree_queue )
-
-macro ( add_Reactor )
+# ####################################################################################################
+# Add Custom Libraries
+# ####################################################################################################
+function ( add_CustomLib )
     add_subdirectory ( ${CMAKE_SOURCE_DIR}/libs/reactor )
-    list ( APPEND SELF_LIBS reactor )
-endmacro ( add_Reactor )
+    add_subdirectory ( ${CMAKE_SOURCE_DIR}/libs/lockfree_queue )
+    add_subdirectory ( ${CMAKE_SOURCE_DIR}/libs/threadpool )
+    add_subdirectory ( ${CMAKE_SOURCE_DIR}/libs/memorypool )
+    list ( APPEND SELF_LIBS reactor lockfree_queue threadpool memorypool )
+
+    info ( "Current Libs: ${SELF_LIBS} " )
+endfunction ()

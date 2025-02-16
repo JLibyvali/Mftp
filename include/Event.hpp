@@ -10,47 +10,32 @@
  */
 #pragma once
 
-namespace ftp
+#include <functional>
+
+namespace ftp::event
 {
 enum class EventId : int
 {
-    newConnect = 133
+    newConnect = 133,
+    unKnown    = -1
 };
 
 /**
- * @brief Event base class, will hold an ID for specific type.
+ * @brief Event base struct, will hold an ID for specific type.
  */
-class EventT
+struct EventT
 {
-public:
-
-    EventT()                                = default;
-    virtual ~EventT()                       = default;
-
     [[nodiscard]] virtual int getid() const = 0;
-
-protected:
-
-    EventId m_id;
 };
 
-class NewConEvent : public EventT
+struct Param
+{};
+
+struct NewConEvent final : public EventT
 {
-public:
+    EventId                      m_id = EventId::newConnect;
+    std::function<void(Param *)> m_task;
 
-    NewConEvent() { m_id = EventId::newConnect; }
-
-    virtual ~NewConEvent()                                   = default;
-
-    NewConEvent(const NewConEvent &_src)                     = default;
-    NewConEvent &operator=(const NewConEvent &_lhs)          = default;
-
-    NewConEvent(NewConEvent &&_src) noexcept                 = default;
-    NewConEvent      &operator=(NewConEvent &&_lhs) noexcept = default;
-
-    [[nodiscard]] int getid() const override { return EventT::getid(); }
-
-private:
-    
+    [[nodiscard]] int            getid() const override { return static_cast<int>(m_id); }
 };
-}  // namespace ftp
+}  // namespace ftp::event

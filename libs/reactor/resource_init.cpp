@@ -22,21 +22,20 @@ struct reactor::Mprocs
     static pid_t m_main_pid, m_con_pid, m_data_pid;
 
     // fd information
-
 };
 
 pid_t reactor::Mprocs::m_main_pid, reactor::Mprocs::m_con_pid, reactor::Mprocs::m_data_pid;
 
-// ##################################################################
+//----------------------------------------------------------------------------------------
 //  method definition
-// #################################################################
+//----------------------------------------------------------------------------------------
 using namespace reactor;
 std::mutex                  ResourceInit::m_mutex;
 std::atomic<ResourceInit *> ResourceInit::m_instance;
 
-// ##################################################################
+//----------------------------------------------------------------------------------------
 //  method definition
-// #################################################################
+//----------------------------------------------------------------------------------------
 ResourceInit               *ResourceInit::procedure()
 {
     // Read instance pointer if any instance existed, using atomic.load(std::memory_order_acquire) ensure
@@ -59,7 +58,7 @@ ResourceInit               *ResourceInit::procedure()
     return ins_ptr;
 }
 
-const int ResourceInit::get_nproc()
+const int ResourceInit::get_nproc() const
 {
     auto nproc_ptr = popen("nproc", "r");
     if (!nproc_ptr)
